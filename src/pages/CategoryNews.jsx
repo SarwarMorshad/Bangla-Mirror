@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import NewsCard from "../components/NewsCard/NewsCard";
 
 const CategoryNews = () => {
   const { id } = useParams();
@@ -9,27 +10,25 @@ const CategoryNews = () => {
     fetch("/news.json")
       .then((res) => res.json())
       .then((data) => {
-        const filteredNews = data.filter((item) => item.category_id === parseInt(id));
-        setNews(filteredNews);
+        if (id == "0") {
+          setNews(data);
+          return;
+        } else if (id == "1") {
+          const filteredNews = data.filter((news) => news.others.is_today_pick == true);
+          setNews(filteredNews);
+        } else {
+          const filteredNews = data.filter((item) => item.category_id == id);
+          setNews(filteredNews);
+        }
       });
   }, [id]);
 
   return (
-    <div>
-      <h1>Category News - {id}</h1>
-      {news.length > 0 ? (
-        news.map((item) => (
-          <div key={item.id}>
-            <img src={item.thumbnail_url} alt={item.title} />
-            <h3>{item.title}</h3>
-            <p>{item.details}</p>
-            <p>By: {item.author.name}</p>
-            <p>Views: {item.total_view}</p>
-          </div>
-        ))
-      ) : (
-        <p>Loading...</p>
-      )}
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-6">News Found- {news.length}</h1>
+      <div className="grid grid-cols-1 gap-6">
+        {news.length > 0 ? news.map((item) => <NewsCard key={item.id} news={item} />) : <p>Loading...</p>}
+      </div>
     </div>
   );
 };
