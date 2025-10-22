@@ -42,7 +42,9 @@ const NewsCard = ({ news }) => {
         <p className="text-gray-700 mb-4">{news.details.substring(0, 200)}...</p>
 
         {/* Read More */}
-        <button className="text-orange-500 font-semibold hover:text-orange-600">Read More</button>
+        <button className="text-orange-500 font-semibold hover:text-orange-600 cursor-pointer">
+          Read More
+        </button>
       </div>
 
       {/* Footer */}
