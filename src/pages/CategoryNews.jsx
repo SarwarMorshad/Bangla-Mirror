@@ -27,7 +27,9 @@ const CategoryNews = () => {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">News Found- {news.length}</h1>
       <div className="grid grid-cols-1 gap-6">
-        {news.length > 0 ? news.map((item) => <NewsCard key={item.id} news={item} />) : <p>Loading...</p>}
+        {news.map((item) => (
+          <NewsCard key={item.id} news={item} />
+        ))}
       </div>
     </div>
   );

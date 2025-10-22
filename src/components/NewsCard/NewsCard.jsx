@@ -34,7 +34,9 @@ const NewsCard = ({ news }) => {
         <h2 className="text-2xl font-bold text-gray-900 mb-4">{news.title}</h2>
 
         {/* Image */}
-        <img src={news.image_url} alt={news.title} className="w-full h-auto rounded-lg mb-4" />
+        <div className="flex justify-center">
+          <img src={news.image_url} alt={news.title} className="w-3/6 h-auto rounded-lg mb-4 " />
+        </div>
 
         {/* Details */}
         <p className="text-gray-700 mb-4">{news.details.substring(0, 200)}...</p>
