@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import user from "../../assets/user.png";
 
 const NavBar = () => {
@@ -13,7 +13,9 @@ const NavBar = () => {
       </div>
       <div className="login-btn flex items-center gap-3">
         <img src={user} alt="User Icon" className="w-8 mr-2" />
-        <button className="btn btn-primary px-6">Login</button>
+        <Link to="/auth/login" className="btn btn-primary px-6">
+          Login
+        </Link>
       </div>
     </div>
   );
