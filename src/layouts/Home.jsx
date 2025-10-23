@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Outlet, useLocation } from "react-router";
+import { Outlet, useLocation, useNavigation } from "react-router";
 
 import LatestNews from "../components/LatestNews/LatestNews";
 import NavBar from "../components/NavBar/NavBar";
@@ -7,10 +7,12 @@ import LeftAside from "../components/Homelayout/LeftAside";
 import RightAside from "../components/Homelayout/RightAside";
 import { FaBars, FaTimes, FaThList, FaShareAlt } from "react-icons/fa";
 import Header from "../components/Header/Header";
+import Loader from "../components/Loader/Loader";
 
 const Home = () => {
   const [showMenu, setShowMenu] = useState(false);
   const location = useLocation();
+  const { state } = useNavigation();
 
   // Close menu when route changes (when user clicks a category)
   useEffect(() => {
@@ -83,7 +85,7 @@ const Home = () => {
 
         {/* Main Content */}
         <section className="col-span-1 lg:col-span-6">
-          <Outlet />
+          {state === "loading" ? <Loader /> : <Outlet />}
         </section>
 
         {/* Right Aside - Desktop Only */}

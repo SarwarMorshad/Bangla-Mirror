@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
+  const [error, setError] = useState("");
   const { login } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
@@ -16,14 +17,15 @@ const Login = () => {
     login(email, password)
       .then((result) => {
         const loggedInUser = result.user;
-        console.log(loggedInUser);
+        // console.log(loggedInUser);
         alert("Login Successful");
         event.target.reset();
         navigate(location?.state || "/");
         // You can add additional logic here, such as redirecting the user
       })
       .catch((error) => {
-        alert(error.message);
+        const errorCode = error.code;
+        setError(errorCode);
       });
   };
 
@@ -66,6 +68,9 @@ const Login = () => {
                 required
               />
             </div>
+            {/* Error Message */}
+            {error && <p className="text-red-500">{error}</p>}
+            {/* Forgot Password Link */}
             <div>
               <a href="" className="link link-hover">
                 Forgot Password?

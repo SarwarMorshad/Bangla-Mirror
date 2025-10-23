@@ -1,26 +1,37 @@
-import React, { useContext } from "react";
-import { Link } from "react-router";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../context/AuthContext";
 
 const Register = () => {
-  const { createUser, setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { createUser, setUser, updateUser } = useContext(AuthContext);
+  const [nameError, setNameError] = useState("");
   const handleRegister = (event) => {
     event.preventDefault();
 
-    // const name = event.target.name.value;
-    // const photoUrl = event.target.photoUrl.value;
+    const name = event.target.name.value;
+    name.length < 3 ? setNameError("Name must be at least 4 characters long") : setNameError("");
+    const photo = event.target.photoUrl.value;
     const email = event.target.email.value;
     const password = event.target.password.value;
 
     createUser(email, password)
       .then((result) => {
         const createdUser = result.user;
-        setUser(createdUser);
-        alert("Registration Successful");
-        // You can add additional logic here, such as updating the user profile with name and photoUrl
+        updateUser({ displayName: name, photoURL: photo })
+          .then(() => {
+            setUser({ ...createdUser, displayName: name, photoURL: photo });
+            // alert("Registration Successful");
+            navigate("/");
+          })
+          .catch((error) => {
+            // console.log(error);
+            setUser(createdUser);
+          });
       })
       .catch((error) => {
-        alert(error.message);
+        const errorCode = error.code;
+        // console.log(errorCode);
       });
   };
   return (
@@ -48,6 +59,7 @@ const Register = () => {
                 required
               />
             </div>
+            {nameError && <p className="text-red-500">{nameError}</p>}
             {/* Photo Url Field */}
             <div className="form-control">
               <label className="label">

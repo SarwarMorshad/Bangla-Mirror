@@ -7,6 +7,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 
 const AuthProvider = ({ children }) => {
@@ -40,6 +41,12 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  // Update user profile
+  const updateUser = (updateData) => {
+    setLoading(true);
+    return updateProfile(auth.currentUser, updateData);
+  };
+
   const authData = {
     user,
     setUser,
@@ -47,6 +54,7 @@ const AuthProvider = ({ children }) => {
     createUser,
     logout,
     login,
+    updateUser,
   };
 
   return <AuthContext value={authData}>{children}</AuthContext>;
