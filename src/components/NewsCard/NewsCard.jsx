@@ -1,5 +1,6 @@
 import React from "react";
 import { FaBookmark, FaShareAlt, FaStar, FaEye } from "react-icons/fa";
+import { Link } from "react-router";
 
 const NewsCard = ({ news }) => {
   return (
@@ -42,9 +43,12 @@ const NewsCard = ({ news }) => {
         <p className="text-gray-700 mb-4">{news.details.substring(0, 200)}...</p>
 
         {/* Read More */}
-        <button className="text-orange-500 font-semibold hover:text-orange-600 cursor-pointer">
+        <Link
+          to={`/newsDetails/${news.id}`}
+          className="text-orange-500 font-semibold hover:text-orange-600 cursor-pointer"
+        >
           Read More
-        </button>
+        </Link>
       </div>
 
       {/* Footer */}

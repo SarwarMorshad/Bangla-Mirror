@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import NewsCard from "../components/NewsCard/NewsCard";
 
 const CategoryNews = () => {
+  // const newsData = useLoaderData();
+  // console.log(newsData);
   const { id } = useParams();
   const [news, setNews] = useState([]);
 

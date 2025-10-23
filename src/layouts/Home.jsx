@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, useLocation } from "react-router";
-import Header from "../../components/Header/Header";
-import LatestNews from "../../components/LatestNews/LatestNews";
-import NavBar from "../../components/NavBar/NavBar";
-import LeftAside from "../../components/Homelayout/LeftAside";
-import RightAside from "../../components/Homelayout/RightAside";
+
+import LatestNews from "../components/LatestNews/LatestNews";
+import NavBar from "../components/NavBar/NavBar";
+import LeftAside from "../components/Homelayout/LeftAside";
+import RightAside from "../components/Homelayout/RightAside";
 import { FaBars, FaTimes, FaThList, FaShareAlt } from "react-icons/fa";
+import Header from "../components/Header/Header";
 
 const Home = () => {
   const [showMenu, setShowMenu] = useState(false);
