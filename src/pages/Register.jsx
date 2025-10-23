@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router";
+import { AuthContext } from "../context/AuthContext";
 
 const Register = () => {
+  const { createUser, setUser } = useContext(AuthContext);
   const handleRegister = (event) => {
     event.preventDefault();
-    // Add your registration logic here
+
+    // const name = event.target.name.value;
+    // const photoUrl = event.target.photoUrl.value;
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    createUser(email, password)
+      .then((result) => {
+        const createdUser = result.user;
+        setUser(createdUser);
+        alert("Registration Successful");
+        // You can add additional logic here, such as updating the user profile with name and photoUrl
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   };
   return (
     <div className="min-h-screen bg-base-200 flex items-center justify-center px-4">
@@ -25,6 +42,7 @@ const Register = () => {
               </label>
               <input
                 type="text"
+                name="name"
                 placeholder="Enter your name"
                 className="input input-bordered w-full bg-base-200 mb-4"
                 required
@@ -37,6 +55,7 @@ const Register = () => {
               </label>
               <input
                 type="text"
+                name="photoUrl"
                 placeholder="Enter your photo URL"
                 className="input input-bordered w-full bg-base-200 mb-4"
                 required
@@ -49,6 +68,7 @@ const Register = () => {
               </label>
               <input
                 type="email"
+                name="email"
                 placeholder="Enter your email address"
                 className="input input-bordered w-full bg-base-200 mb-4"
                 required
@@ -62,6 +82,7 @@ const Register = () => {
               </label>
               <input
                 type="password"
+                name="password"
                 placeholder="Enter your password"
                 className="input input-bordered w-full bg-base-200 mb-4"
                 required
@@ -89,7 +110,7 @@ const Register = () => {
             </div>
 
             {/* Register Link */}
-            <p className="text-center text-gray-600 pt-4">
+            <p className="text-center text-gray-600 pt-4 font-semibold">
               Already Have An Account?{" "}
               <Link to="/auth/login" className="text-error font-semibold hover:underline">
                 Login
